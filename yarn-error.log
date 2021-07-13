@@ -1,0 +1,51 @@
+Arguments: 
+  /usr/local/Cellar/node/16.4.2/bin/node /usr/local/bin/yarn deploy
+
+PATH: 
+  /usr/local/opt/opencv@3/bin:/Users/ecastillo/opt/anaconda3/bin:/Users/ecastillo/opt/anaconda3/condabin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/opt/X11/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  16.4.2
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/ecastillo/Documents/Git/Serverless-frameWork-Ex/package.json: Unexpected string in JSON at position 167
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "serverless-framework-ex",
+    "version": "1.0.0",
+    "description": "",
+    "main": "handler.py",
+    "scripts": {
+      "invoke": "sls invoke local -f hello"
+      "deploy": "sls deploy --stage dev --verbose"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/forcesk/Serverless-frameWork-Ex.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/forcesk/Serverless-frameWork-Ex/issues"
+    },
+    "homepage": "https://github.com/forcesk/Serverless-frameWork-Ex#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

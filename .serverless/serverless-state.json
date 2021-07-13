@@ -9,7 +9,7 @@
       "runtime": "python3.8",
       "lambdaHashingVersion": "20201221",
       "profile": "ecg-profile",
-      "stage": "api",
+      "stage": "dev",
       "region": "us-east-1",
       "versionFunctions": true,
       "compiledCloudFormationTemplate": {
@@ -89,6 +89,12 @@
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
               "LogGroupName": "/aws/lambda/api-dev-hello"
+            }
+          },
+          "PublicLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/api-dev-public"
             }
           },
           "IamRoleLambdaExecution": {
@@ -175,7 +181,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/api/dev/1626168840053-2021-07-13T09:34:00.053Z/api.zip"
+                "S3Key": "serverless/api/dev/1626169773538-2021-07-13T09:49:33.538Z/api.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "python3.8",
@@ -193,14 +199,49 @@
               "HelloLogGroup"
             ]
           },
-          "HelloLambdaVersioncYCSSjiMvVfw67DzCNNkIPfyLGyhayBv8YZZvBFoHg": {
+          "PublicLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/api/dev/1626169773538-2021-07-13T09:49:33.538Z/api.zip"
+              },
+              "Handler": "handler.public",
+              "Runtime": "python3.8",
+              "FunctionName": "api-dev-public",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "PublicLogGroup"
+            ]
+          },
+          "HelloLambdaVersionEiRxaUFKBp6f80tyz9dl8LC0NEFXzwgdjVAZ8Rgd8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "1uMXaNl8FSeHx0T+yDhZBHroHZUclHV2yenFUv08uxQ="
+              "CodeSha256": "n3EijUd0Xsk7yYNiqwfj0jTjaH9X36nKXTTwcyu8OP0="
+            }
+          },
+          "PublicLambdaVersionQREXWS5v70BVGOODH6gtcYj4oUYO1d7aK6pVxzfuU7M": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "PublicLambdaFunction"
+              },
+              "CodeSha256": "n3EijUd0Xsk7yYNiqwfj0jTjaH9X36nKXTTwcyu8OP0="
             }
           },
           "ApiGatewayRestApi": {
@@ -225,6 +266,33 @@
                 ]
               },
               "PathPart": "helloWorld",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceApi": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "PathPart": "api",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceApiPublic": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceApi"
+              },
+              "PathPart": "public",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
@@ -276,7 +344,53 @@
               "HelloLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1626168837048": {
+          "ApiGatewayMethodApiPublicGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceApiPublic"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "PublicLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            },
+            "DependsOn": [
+              "PublicLambdaPermissionApiGateway"
+            ]
+          },
+          "ApiGatewayDeployment1626169770770": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -285,7 +399,8 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodHelloworldGet"
+              "ApiGatewayMethodHelloworldGet",
+              "ApiGatewayMethodApiPublicGet"
             ]
           },
           "HelloLambdaPermissionApiGateway": {
@@ -294,6 +409,43 @@
               "FunctionName": {
                 "Fn::GetAtt": [
                   "HelloLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "PublicLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "PublicLambdaFunction",
                   "Arn"
                 ]
               },
@@ -338,10 +490,19 @@
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersioncYCSSjiMvVfw67DzCNNkIPfyLGyhayBv8YZZvBFoHg"
+              "Ref": "HelloLambdaVersionEiRxaUFKBp6f80tyz9dl8LC0NEFXzwgdjVAZ8Rgd8"
             },
             "Export": {
               "Name": "sls-api-dev-HelloLambdaFunctionQualifiedArn"
+            }
+          },
+          "PublicLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "PublicLambdaVersionQREXWS5v70BVGOODH6gtcYj4oUYO1d7aK6pVxzfuU7M"
+            },
+            "Export": {
+              "Name": "sls-api-dev-PublicLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -475,7 +636,26 @@
         "timeout": 6,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersioncYCSSjiMvVfw67DzCNNkIPfyLGyhayBv8YZZvBFoHg"
+        "versionLogicalId": "HelloLambdaVersionEiRxaUFKBp6f80tyz9dl8LC0NEFXzwgdjVAZ8Rgd8"
+      },
+      "public": {
+        "handler": "handler.public",
+        "events": [
+          {
+            "http": {
+              "method": "get",
+              "path": "api/public",
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "api-dev-public",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "python3.8",
+        "vpc": {},
+        "versionLogicalId": "PublicLambdaVersionQREXWS5v70BVGOODH6gtcYj4oUYO1d7aK6pVxzfuU7M"
       }
     },
     "configValidationMode": "warn",
@@ -497,7 +677,7 @@
     "artifact": "/Users/ecastillo/Documents/Git/Serverless-frameWork-Ex/.serverless/api.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/api/dev/1626168840053-2021-07-13T09:34:00.053Z",
+    "artifactDirectoryName": "serverless/api/dev/1626169773538-2021-07-13T09:49:33.538Z",
     "artifact": "api.zip"
   }
 }

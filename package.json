@@ -4,7 +4,8 @@
   "description": "",
   "main": "handler.py",
   "scripts": {
-    "invoke": "sls invoke local -f hello"
+    "invoke": "sls invoke local -f hello",
+    "deploy": "sls deploy --verbose"
   },
   "repository": {
     "type": "git",

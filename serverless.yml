@@ -25,7 +25,7 @@ provider:
   runtime: python3.8
   lambdaHashingVersion: 20201221
   profile: ecg-profile
-  stage: dev
+  #stage: dev
   region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
@@ -63,6 +63,13 @@ functions:
       - http:
           method: get
           path: /helloWorld
+
+  public:
+    handler: handler.public
+    events:
+      - http:
+          method: get
+          path: /api/public
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
