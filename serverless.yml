@@ -60,14 +60,7 @@ plugins:
 #    - include-me-dir/**
 
 functions:
-
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          method: get
-          path: /helloWorld
-
+  
   public:
     handler: handler.public
     events:
@@ -136,3 +129,5 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+#serverless offline --httpPort 3004 --lambdaPort 4000

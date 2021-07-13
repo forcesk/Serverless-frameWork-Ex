@@ -6,7 +6,8 @@
   "scripts": {
     "invoke": "sls invoke local -f hello",
     "invoke_pub": "sls invoke local -f public",
-    "deploy": "sls deploy --verbose"
+    "deploy": "sls deploy --verbose",
+    "offline": "sls offline"
   },
   "repository": {
     "type": "git",
