@@ -57,6 +57,7 @@ provider:
 #    - include-me-dir/**
 
 functions:
+
   hello:
     handler: handler.hello
     events:
@@ -70,6 +71,16 @@ functions:
       - http:
           method: get
           path: /api/public
+
+  private:
+    handler: handler.private
+    events:
+      - http:
+          method: get
+          path: /api/private
+          authorizer: authorizerFunc
+  authorizerFunc:
+    handler: authorizer.authorizerFunc
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

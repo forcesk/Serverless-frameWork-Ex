@@ -27,6 +27,19 @@ def public(event, context):
 
     return response
 
+
+def private(event, context):
+    body = {
+        "message": "Private test!"
+    }
+
+    response = {
+        "statusCode": 200,
+        "body": json.dumps(body)
+    }
+
+    return response
+
     # Use this code if you don't use the http event with the LAMBDA-PROXY
     # integration
     """
