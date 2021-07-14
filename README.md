@@ -20,3 +20,16 @@ serverless offline --noPrependStageInUrl --httpPort 3119 --lambdaPort 6057
 
 En las primeras versiones corria en AWS :earth_americas: , pero debido a los requirimientos ahora trabaja con Serverless Offline.
 
+Para comprobar su funcionamiento se usó Postman.
+
+### El código JWT correcto
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwicm9sZSI6ImJvdCIsImFjY2Vzc0tleSI6IlFXRVJUWVVJT1AiLCJpYXQiOjE1MTYyMzkwMjJ9.VjEN_JL8qAUxYtE5H11r3_CoAaBIRqGKJ1VQo9iwPgI
+
+```
+
+### El código obedece al siguiente diagrama:
+![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/a2333ee0694e5df0eb36996bddca6cc1dc2e6ffd/images/diagram.png) 
+  
+
+
