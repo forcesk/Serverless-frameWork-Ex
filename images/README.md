@@ -4,7 +4,7 @@
 ![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/e1dbd07e175a0d98172575ae6cf179aedd4d15c2/images/image3.png)
 ### Consola: item agregado a db
 ![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/e1dbd07e175a0d98172575ae6cf179aedd4d15c2/images/image1.png)
-### api/private JWT incorrecto
+### api/private sin auth JWT
 ![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/e1dbd07e175a0d98172575ae6cf179aedd4d15c2/images/image5.png)
 ### Ejecución api/publica
 ![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/e1dbd07e175a0d98172575ae6cf179aedd4d15c2/images/image4.png)
