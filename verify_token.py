@@ -24,7 +24,7 @@ def verify_token(token):
     #print(payload['role'])
     #print(payload['accessKey'])
 
-    #Si contiene los datos correctos
+    #Se comprueba si contiene los datos correctos
     if payload['role']=="bot" and payload['accessKey']=="QWERTYUIOP":
         print("\n Acceso concedido. \n")
         return True
