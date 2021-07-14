@@ -7,11 +7,15 @@ def authorizerFunc(event, context):
 
     id = 1
     token = get_token(event)
-    print('Token value: '+str(event))
 
+    # Token vacio, no hay JWT, acceso denegado
     if token == 0:
         id = 2
+        policy = generate_policy(id,'Deny',event['methodArn'])
+        return policy
 
+    print('JWT: '+str(token))
+    print('\n')
 
     if id == 1 :
         policy = generate_policy(id,'Allow',event['methodArn'])
