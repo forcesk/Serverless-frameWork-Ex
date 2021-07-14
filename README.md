@@ -21,6 +21,7 @@ serverless offline --noPrependStageInUrl --httpPort 3119 --lambdaPort 6057
 > El puerto http y lambda son solo para no crear conflictos de puertos ocupados :thumbsup: , la opción no Prepend quita el 'stage' de la URL.
 
 En las primeras versiones corria en AWS :earth_americas: , pero debido a los requirimientos ahora trabaja con Serverless Offline.
+> [Imágenes de uso](images/README.md)
 
 
 ### El código JWT correcto
