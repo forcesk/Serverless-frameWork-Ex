@@ -29,7 +29,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwicm9sZSI6ImJvdCI
 
 ```
 
-### El código obedece al siguiente diagrama:
+### Esta implementación obedece al siguiente diagrama:
 ![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/a2333ee0694e5df0eb36996bddca6cc1dc2e6ffd/images/diagram.png) 
   
 
