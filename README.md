@@ -13,6 +13,8 @@
 * [Postman](https://www.postman.com)
 
 ## Modo de uso
+Para comprobar su funcionamiento se usó Postman.
+
 ```
 serverless offline --noPrependStageInUrl --httpPort 3119 --lambdaPort 6057
 ```
@@ -20,7 +22,6 @@ serverless offline --noPrependStageInUrl --httpPort 3119 --lambdaPort 6057
 
 En las primeras versiones corria en AWS :earth_americas: , pero debido a los requirimientos ahora trabaja con Serverless Offline.
 
-Para comprobar su funcionamiento se usó Postman.
 
 ### El código JWT correcto
 ```
