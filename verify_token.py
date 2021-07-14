@@ -1,13 +1,9 @@
-import os
 import json
-import base64
-
-from six.moves.urllib.request import urlopen
 import jwt
 
 def verify_token(token):
 
-
+    #Opciones de Verificación
     jwt_options = {
         'verify_signature': False,
         'verify_exp': True,
@@ -16,7 +12,24 @@ def verify_token(token):
         'verify_aud': False
     }
 
-    print("secret \n")
-    jwt.decode(
-    token,"",algorithms=['HS256'],options=jwt_options
-)
+    #Datos del JWT
+    try:
+        payload = jwt.decode(token,algorithms=['HS256'],options=jwt_options)
+
+    except:
+        print("\n Error en el Token JWT \n")
+        return False
+
+
+    #print(payload['role'])
+    #print(payload['accessKey'])
+
+    #Si contiene los datos correctos
+    if payload['role']=="bot" and payload['accessKey']=="QWERTYUIOP":
+        print("\n Acceso concedido. \n")
+        return True
+
+    # Si NO contiene los datos correctos
+    else:
+        print("\n Acceso DENEGADO. \n")
+        return False

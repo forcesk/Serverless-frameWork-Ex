@@ -76,7 +76,7 @@ functions:
           path: /api/private
           authorizer: authorizerFunc
   authorizerFunc:
-    handler: authorizer.authorizerFunc
+    handler: authorizer.AUTHORIZER
 
 
 #    The following are a few example events you can configure

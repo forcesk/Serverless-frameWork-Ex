@@ -1,33 +1,33 @@
 import json
-import os
-import requests
 from get_token import get_token
 from verify_token import verify_token
 
-def authorizerFunc(event, context):
+def AUTHORIZER(event, context):
 
-    id = 1
+    # principal_id
+    id = 'Private_test'
+
     token = get_token(event)
 
     # Token vacio, no hay JWT, acceso denegado
     if token == 0:
-        id = 2
         policy = generate_policy(id,'Deny',event['methodArn'])
         return policy
 
-    #print('JWT: '+str(token))
-    #print('\n')
+    # Verificación de datos en el Token
+    flag = verify_token(token)
 
-    verify_token(token)
-
-    if id == 1 :
+    # Credenciales correctas del JWT
+    if flag:
         policy = generate_policy(id,'Allow',event['methodArn'])
         return policy
 
+    #Credenciales incorrectas, acceso denegado.
     else:
         policy = generate_policy(id,'Deny',event['methodArn'])
         return policy
 
+# Función que genera la politica de acceso.
 def generate_policy(principal_id, effect,resource, scopes=None):
     policy = {
         'principalId': principal_id,

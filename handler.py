@@ -15,7 +15,7 @@ def public(event, context):
 
 def private(event, context):
     body = {
-        "message": "Private test!"
+        "message": "Acceso Concedido."
     }
 
     response = {
