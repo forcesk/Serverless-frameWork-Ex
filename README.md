@@ -13,7 +13,7 @@
 * [Postman](https://www.postman.com)
 
 ## Modo de uso
-Para comprobar su funcionamiento se usó Postman.
+Para comprobar su funcionamiento se usó Postman y para su ejecución se usó el siguiente comando.
 
 ```
 serverless offline --noPrependStageInUrl --httpPort 3119 --lambdaPort 6057
