@@ -7,6 +7,6 @@
 ### api/private sin auth JWT
 ![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/e1dbd07e175a0d98172575ae6cf179aedd4d15c2/images/image5.png)
 ### api/private JWT incorrecto
-![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/e1dbd07e175a0d98172575ae6cf179aedd4d15c2/images/image6.png)
+![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/ea9bc4fc8490dbf7fc76baf0e3d03a2d86e4b315/images/image6.png)
 ### Ejecución api/publica
 ![alt text](https://github.com/forcesk/Serverless-frameWork-Ex/blob/e1dbd07e175a0d98172575ae6cf179aedd4d15c2/images/image4.png)
